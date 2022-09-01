@@ -121,6 +121,21 @@ def setUp(project):
     project.run_sql_file(project.test_data_dir / Path("seed.sql"))
 
 
+class BaseEphemeralMulti:
+    @pytest.fixture(scope="class")
+    def models(self):
+        return {
+            "dependent.sql": models__dependent_sql,
+            "double_dependent.sql": models__double_dependent_sql,
+            "super_dependent.sql": models__super_dependent_sql,
+            "base": {
+                "female_only.sql": models__base__female_only_sql,
+                "base.sql": models__base__base_sql,
+                "base_copy.sql": models__base__base_copy_sql,
+            },
+        }
+
+
 class TestEphemeralMulti:
     @pytest.fixture(scope="class")
     def models(self):
