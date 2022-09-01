@@ -85,7 +85,7 @@ def setUp(project):
 
 class TestConcurenncy:
     @pytest.fixture(scope="class")
-    def models():
+    def models(self):
         return {
             "invalid.sql": models__invalid_sql,
             "table_a.sql": models__table_a_sql,
