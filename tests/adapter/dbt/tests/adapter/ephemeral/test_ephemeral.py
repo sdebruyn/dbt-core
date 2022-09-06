@@ -123,7 +123,7 @@ def setUp(project):
 
 class BaseEphemeralMulti:
     @pytest.fixture(scope="class", autouse=True)
-    def setUp(project):
+    def setUp(self, project):
         project.run_sql_file(project.test_data_dir / Path("seed.sql"))
 
     @pytest.fixture(scope="class")
