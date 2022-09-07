@@ -116,9 +116,10 @@ from source_data
 """
 
 
-@pytest.fixture(scope="class", autouse=True)
-def setUp(project):
-    project.run_sql_file(project.test_data_dir / Path("seed.sql"))
+class BaseEphemeral:
+    @pytest.fixture(scope="class", autouse=True)
+    def setUp(self, project):
+        project.run_sql_file(project.test_data_dir / Path("seed.sql"))
 
 
 class BaseEphemeralMulti:
@@ -140,20 +141,7 @@ class BaseEphemeralMulti:
         }
 
 
-class TestEphemeralMulti:
-    @pytest.fixture(scope="class")
-    def models(self):
-        return {
-            "dependent.sql": models__dependent_sql,
-            "double_dependent.sql": models__double_dependent_sql,
-            "super_dependent.sql": models__super_dependent_sql,
-            "base": {
-                "female_only.sql": models__base__female_only_sql,
-                "base.sql": models__base__base_sql,
-                "base_copy.sql": models__base__base_copy_sql,
-            },
-        }
-
+class TestEphemeralMulti(BaseEphemeralMulti):
     def test_ephemeral_multi(self, project):
         results = run_dbt(["run"])
         assert len(results) == 3
@@ -184,7 +172,7 @@ class TestEphemeralMulti:
         assert sql_file == expected_sql
 
 
-class TestEphemeralNested:
+class TestEphemeralNested(BaseEphemeral):
     @pytest.fixture(scope="class")
     def models(self):
         return {
@@ -217,7 +205,7 @@ class TestEphemeralNested:
         assert sql_file == expected_sql
 
 
-class TestEphemeralErrorHandling:
+class TestEphemeralErrorHandling(BaseEphemeral):
     @pytest.fixture(scope="class")
     def models(self):
         return {
