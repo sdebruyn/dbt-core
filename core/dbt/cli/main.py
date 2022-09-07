@@ -1,29 +1,33 @@
+import inspect  # This is temporary for RAT-ing
+import sys
+from pprint import pformat as pf  # This is temporary for RAT-ing
+
 import click
 from dbt.cli import params as p
-import sys
-
-# This is temporary for RAT-ing
-import inspect
-from pprint import pformat as pf
+from dbt.cli.flags import Flags
 
 
 # dbt
 @click.group(
+    context_settings={"help_option_names": ["-h", "--help"]},
     invoke_without_command=True,
     no_args_is_help=True,
     epilog="Specify one of these sub-commands and you can find more help from there.",
 )
 @click.pass_context
+@p.anonymous_usage_stats
 @p.version
 @p.cache_selected_only
 @p.debug
+@p.enable_legacy_logger
 @p.fail_fast
+@p.log_cache_events
 @p.log_format
+@p.macro_debugging
 @p.partial_parse
 @p.print
 @p.printer_width
 @p.quiet
-@p.send_anonymous_usage_stats
 @p.static_parser
 @p.use_colors
 @p.use_experimental_parser
@@ -63,8 +67,9 @@ def build(ctx, **kwargs):
 @p.vars
 def clean(ctx, **kwargs):
     """Delete all folders in the clean-targets list (usually the dbt_packages and target directories.)"""
+    flags = Flags()
     click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
+        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}\n flags {flags}"
     )
 
 
@@ -377,7 +382,3 @@ def test(ctx, **kwargs):
     click.echo(
         f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
     )
-
-
-def runner():
-    cli(auto_envvar_prefix="DBT")
