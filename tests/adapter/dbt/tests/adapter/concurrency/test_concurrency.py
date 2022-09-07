@@ -78,12 +78,11 @@ select * from {{ref('invalid')}}
 """
 
 
-@pytest.fixture(scope="class", autouse=True)
-def setUp(project):
-    project.run_sql_file(project.test_data_dir / Path("seed.sql"))
+class BaseConcurrency:
+    @pytest.fixture(scope="class", autouse=True)
+    def setUp(self, project):
+        project.run_sql_file(project.test_data_dir / Path("seed.sql"))
 
-
-class TestConcurenncy:
     @pytest.fixture(scope="class")
     def models(self):
         return {
@@ -96,6 +95,8 @@ class TestConcurenncy:
             "skip.sql": models__skip_sql,
         }
 
+
+class TestConcurenncy(BaseConcurrency):
     def test_concurrency(self, project):
         results = run_dbt(["run"], expect_pass=False)
         assert len(results) == 7
