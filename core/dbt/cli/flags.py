@@ -13,9 +13,10 @@ if os.name != "nt":
 
 @dataclass(frozen=True)
 class Flags:
-    def __init__(self) -> None:
+    def __init__(self, ctx=None) -> None:
 
-        ctx = get_current_context()
+        if ctx is None:
+            ctx = get_current_context()
 
         def assign_params(ctx):
             """Recursively adds all click params to flag object"""
@@ -34,7 +35,7 @@ class Flags:
         # Hard coded flags
         #  TODO: This is listed as for backwards compat... Still needed?
         object.__setattr__(self, "STRICT_MODE", False)
-        object.__setattr__(self, "WHICH", None)
+        object.__setattr__(self, "WHICH", ctx.info_name)
         object.__setattr__(self, "MP_CONTEXT", get_context("spawn"))
 
         # Support console DO NOT TRACK initiave

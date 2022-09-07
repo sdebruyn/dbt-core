@@ -3,6 +3,10 @@ from pathlib import Path, PurePath
 import click
 from dbt.cli.option_types import YAML, Truthy
 
+# TODO:  The name (reflected in flags) is a correction!
+# The original name was `SEND_ANONYMOUS_USAGE_STATS` and used an env var called "DBT_SEND_ANONYMOUS_USAGE_STATS"
+# Both of which break existing naming conventions (doesn't match param flag).
+# This will need to be fixed before use in the main codebase and communicated as a change to the community!
 anonymous_usage_stats = click.option(
     "--anonymous-usage-stats/--no-anonymous-usage-stats",
     envvar="DBT_ANONYMOUS_USAGE_STATS",
@@ -66,7 +70,6 @@ defer = click.option(
     "--defer/--no-defer",
     envvar="DBT_DEFER",
     help="If set, defer to the state variable for resolving unselected nodes.",
-    default=True,
 )
 
 enable_legacy_logger = click.option(
@@ -112,7 +115,6 @@ log_cache_events = click.option(
     "--log-cache-events/--no-log-cache-events",
     envvar="DBT_LOG_CACHE_EVENTS",
     hidden=True,
-    default=None,
 )
 
 log_format = click.option(
@@ -134,7 +136,6 @@ macro_debugging = click.option(
     "--macro-debugging/--no-macro-debugging",
     envvar="DBT_MACRO_DEBUGGING",
     hidden=True,
-    default=None,
 )
 
 models = click.option(
@@ -158,7 +159,7 @@ output_keys = click.option(
     "--output-keys",
     envvar=None,
     help="TODO: No current help text",
-    default=False,
+    is_flag=True,
 )
 
 output_path = click.option(
@@ -247,7 +248,6 @@ record_timing_info = click.option(
     envvar=None,
     help="When this option is passed, dbt will output low-level timing stats to the specified file. Example: `--record-timing-info output.profile`",
     is_flag=True,
-    default=False,
 )
 
 resource_type = click.option(
@@ -277,18 +277,11 @@ selector = click.option(
 )
 
 show = click.option(
-    "--show",
-    envvar=None,
-    help="Show a sample of the loaded data in the terminal",
-    default=False,
+    "--show", envvar=None, help="Show a sample of the loaded data in the terminal", is_flag=True
 )
 
 skip_profile_setup = click.option(
-    "--skip-profile-setup",
-    "-s",
-    envvar=None,
-    help="Skip interative profile setup.",
-    default=False,
+    "--skip-profile-setup", "-s", envvar=None, help="Skip interative profile setup.", is_flag=True
 )
 
 # TODO:  The env var and name (reflected in flags) are corrections!
@@ -313,7 +306,7 @@ store_failures = click.option(
     "--store-failures",
     envvar="DBT_STORE_FAILURES",
     help="Store test results (failing rows) in the database",
-    default=False,
+    is_flag=True,
 )
 
 target = click.option(
@@ -356,7 +349,10 @@ vars = click.option(
 )
 
 version = click.option(
-    "--version", envvar=None, help="Show version information", is_flag=True, default=False
+    "--version",
+    envvar=None,
+    help="Show version information",
+    is_flag=True,
 )
 
 version_check = click.option(
