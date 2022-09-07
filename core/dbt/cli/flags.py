@@ -33,7 +33,6 @@ class Flags:
         # Hard coded flags
         #  TODO: This is listed as for backwards compat... Still needed?
         object.__setattr__(self, "STRICT_MODE", False)
-        #  TODO:  Appears unused... Still needed?
         object.__setattr__(self, "WHICH", None)
         object.__setattr__(self, "MP_CONTEXT", get_context("spawn"))
 

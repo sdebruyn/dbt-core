@@ -151,7 +151,7 @@ output = click.option(
     default="name",
 )
 
-ouptut_keys = click.option(
+output_keys = click.option(
     "--output-keys",
     envvar=None,
     help="TODO: No current help text",
