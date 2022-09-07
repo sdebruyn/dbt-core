@@ -28,7 +28,6 @@ cache_selected_only = click.option(
     "--cache-selected-only/--no-cache-selected-only",
     envvar="DBT_CACHE_SELECTED_ONLY",
     help="Pre cache database objects relevant to selected resource only.",
-    default=False,
 )
 
 compile_docs = click.option(
@@ -57,7 +56,6 @@ debug = click.option(
     "-d/ ",
     envvar="DBT_DEBUG",
     help="Display debug logging during dbt execution. Useful for debugging and making bug reports.",
-    default=False,
 )
 
 # TODO:  The env var and name (reflected in flags) are corrections!
@@ -75,7 +73,6 @@ enable_legacy_logger = click.option(
     "--enable-legacy-logger/--no-enable-legacy-logger",
     envvar="DBT_ENABLE_LEGACY_LOGGER",
     hidden=True,
-    default=False,
 )
 
 event_buffer_size = click.option(
@@ -93,7 +90,6 @@ fail_fast = click.option(
     "-x/ ",
     envvar="DBT_FAIL_FAST",
     help="Stop execution on first failure.",
-    default=False,
 )
 
 full_refresh = click.option(
@@ -243,7 +239,6 @@ quiet = click.option(
     "--quiet/--no-quiet",
     envvar="DBT_QUIET",
     help="Suppress all non-error logging to stdout. Does not affect {{ print() }} macro calls.",
-    default=False,
 )
 
 record_timing_info = click.option(
@@ -351,7 +346,6 @@ use_experimental_parser = click.option(
     "--use-experimental-parser/--no-use-experimental-parser",
     envvar="DBT_USE_EXPERIMENTAL_PARSER",
     help="Enable experimental parsing features.",
-    default=False,
 )
 
 vars = click.option(
@@ -376,7 +370,6 @@ warn_error = click.option(
     "--warn-error/--no-warn-error",
     envvar="DBT_WARN_ERROR",
     help="If dbt would normally warn, instead raise an exception. Examples include --models that selects nothing, deprecations, configurations with no associated models, invalid test configurations, and missing sources/refs in tests.",
-    default=False,
 )
 
 write_json = click.option(
