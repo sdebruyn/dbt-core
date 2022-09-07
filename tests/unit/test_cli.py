@@ -1,8 +1,9 @@
 import ast
 from inspect import getsource
+
 import click
-from dbt.cli.main import cli
 from dbt.cli import params
+from dbt.cli.main import cli
 
 
 class TestCLI:
@@ -30,10 +31,9 @@ class TestCLI:
 
         run_test(cli)
 
-    def test_params_follow_naming_convention(self):
+    def test_param_names_match_envvars(self):
         def run_test(command):
             for param in command.params:
-                assert param.name.replace("_", "-") in " ".join(param.opts)
                 if param.envvar is not None:
                     assert "DBT_" + param.name.upper() == param.envvar
             if type(command) is click.Group:
@@ -44,7 +44,7 @@ class TestCLI:
 
     def test_params_are_alpha_sorted(self):
         root_node = ast.parse(getsource(params))
-        param_names = [
+        param_var_names = [
             node.targets[0].id for node in ast.walk(root_node) if isinstance(node, ast.Assign)
         ]
-        assert param_names == sorted(param_names)
+        assert param_var_names == sorted(param_var_names)

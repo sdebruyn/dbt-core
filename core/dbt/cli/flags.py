@@ -2,6 +2,7 @@
 import os
 from dataclasses import dataclass
 from multiprocessing import get_context
+from pprint import pformat as pf
 
 from click import get_current_context
 
@@ -39,3 +40,6 @@ class Flags:
         # Support console DO NOT TRACK initiave
         if os.getenv("DO_NOT_TRACK", "").lower() in (1, "t", "true", "y", "yes"):
             object.__setattr__(self, "ANONYMOUS_USAGE_STATS", False)
+
+    def __str__(self) -> str:
+        return str(pf(self.__dict__))

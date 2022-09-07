@@ -28,7 +28,7 @@ from dbt.cli.flags import Flags
 @p.print
 @p.printer_width
 @p.quiet
-@p.record_timing
+@p.record_timing_info
 @p.static_parser
 @p.use_colors
 @p.use_experimental_parser
@@ -71,9 +71,8 @@ def cli(ctx, **kwargs):
 @p.version_check
 def build(ctx, **kwargs):
     """Run all Seeds, Models, Snapshots, and tests in DAG order"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt clean
@@ -87,9 +86,7 @@ def build(ctx, **kwargs):
 def clean(ctx, **kwargs):
     """Delete all folders in the clean-targets list (usually the dbt_packages and target directories.)"""
     flags = Flags()
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}\n flags {flags}"
-    )
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt docs
@@ -119,9 +116,8 @@ def docs(ctx, **kwargs):
 @p.version_check
 def docs_generate(ctx, **kwargs):
     """Generate the documentation website for your project"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt docs serve
@@ -136,9 +132,8 @@ def docs_generate(ctx, **kwargs):
 @p.vars
 def docs_serve(ctx, **kwargs):
     """Serve the documentation website for your project"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt compile
@@ -162,9 +157,8 @@ def docs_serve(ctx, **kwargs):
 @p.version_check
 def compile(ctx, **kwargs):
     """Generates executable SQL from source, model, test, and analysis files. Compiled SQL files are written to the target/ directory."""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt debug
@@ -179,9 +173,8 @@ def compile(ctx, **kwargs):
 @p.version_check
 def debug(ctx, **kwargs):
     """Show some helpful information about dbt for debugging. Not to be confused with the --debug option which increases verbosity."""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt deps
@@ -194,9 +187,8 @@ def debug(ctx, **kwargs):
 @p.vars
 def deps(ctx, **kwargs):
     """Pull the most recent version of the dependencies listed in packages.yml"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt init
@@ -210,13 +202,12 @@ def deps(ctx, **kwargs):
 @p.vars
 def init(ctx, **kwargs):
     """Initialize a new DBT project."""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt list
-# dbt TODO: Figure out aliasing for ls (or just c/p?)
+# TODO: Figure out aliasing for ls (or just c/p?)
 @cli.command("list")
 @click.pass_context
 @p.exclude
@@ -234,9 +225,8 @@ def init(ctx, **kwargs):
 @p.vars
 def list(ctx, **kwargs):
     """List the resources in your project"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt parse
@@ -255,9 +245,8 @@ def list(ctx, **kwargs):
 @p.write_manifest
 def parse(ctx, **kwargs):
     """Parses the project and provides information on performance"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt run
@@ -281,9 +270,8 @@ def parse(ctx, **kwargs):
 @p.version_check
 def run(ctx, **kwargs):
     """Compile SQL and execute against the current target database."""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt run operation
@@ -297,9 +285,8 @@ def run(ctx, **kwargs):
 @p.vars
 def run_operation(ctx, **kwargs):
     """Run the named macro with any supplied arguments."""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt seed
@@ -322,9 +309,8 @@ def run_operation(ctx, **kwargs):
 @p.version_check
 def seed(ctx, **kwargs):
     """Load data from csv files into your data warehouse."""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt snapshot
@@ -343,9 +329,8 @@ def seed(ctx, **kwargs):
 @p.vars
 def snapshot(ctx, **kwargs):
     """Execute snapshots defined in your project"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt source
@@ -371,9 +356,8 @@ def source(ctx, **kwargs):
 @p.vars
 def freshness(ctx, **kwargs):
     """Snapshots the current freshness of the project's sources"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
 
 
 # dbt test
@@ -398,6 +382,5 @@ def freshness(ctx, **kwargs):
 @p.version_check
 def test(ctx, **kwargs):
     """Runs tests on data in deployed models. Run this after `dbt run`"""
-    click.echo(
-        f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
-    )
+    flags = Flags()
+    click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")

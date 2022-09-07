@@ -141,7 +141,14 @@ macro_debugging = click.option(
     default=None,
 )
 
-models = click.option("-m", "-s", envvar=None, help="Specify the nodes to include.", multiple=True)
+models = click.option(
+    "-m",
+    "-s",
+    "models",
+    envvar=None,
+    help="Specify the nodes to include.",
+    multiple=True,
+)
 
 output = click.option(
     "--output",
@@ -239,7 +246,7 @@ quiet = click.option(
     default=False,
 )
 
-record_timing = click.option(
+record_timing_info = click.option(
     "--record-timing-info",
     "-r",
     envvar=None,
