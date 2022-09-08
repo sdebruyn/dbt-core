@@ -1,7 +1,7 @@
 from pathlib import Path, PurePath
 
 import click
-from dbt.cli.option_types import YAML, Truthy
+from dbt.cli.option_types import YAML
 
 # TODO:  The name (reflected in flags) is a correction!
 # The original name was `SEND_ANONYMOUS_USAGE_STATS` and used an env var called "DBT_SEND_ANONYMOUS_USAGE_STATS"
@@ -289,7 +289,13 @@ state = click.option(
     "--state",
     envvar="DBT_STATE",
     help="If set, use the given directory as the source for json files to compare with this project.",
-    type=Truthy(),
+    type=click.Path(
+        dir_okay=True,
+        exists=True,
+        file_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
 )
 
 static_parser = click.option(
