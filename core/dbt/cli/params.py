@@ -156,10 +156,7 @@ output = click.option(
 )
 
 output_keys = click.option(
-    "--output-keys",
-    envvar=None,
-    help="TODO: No current help text",
-    is_flag=True,
+    "--output-keys", envvar=None, help="TODO: No current help text", type=click.STRING
 )
 
 output_path = click.option(
