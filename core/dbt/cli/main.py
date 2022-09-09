@@ -377,3 +377,8 @@ def test(ctx, **kwargs):
     click.echo(
         f"`{inspect.stack()[0][3]}` called\n kwargs: {kwargs}\n ctx: {pf(ctx.parent.params)}"
     )
+
+
+# Support running as a module
+if __name__ == "__main__":
+    cli()
