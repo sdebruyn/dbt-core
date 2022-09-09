@@ -43,7 +43,7 @@ setup(
     include_package_data=True,
     test_suite="test",
     entry_points={
-        "console_scripts": ["dbt = dbt.main:main", "dbt-cli = dbt.cli.main:cli"],
+        "console_scripts": ["dbt = dbt.main:main", "dbt-cli = dbt.cli.main:cli_runner"],
     },
     install_requires=[
         "Jinja2==3.1.2",

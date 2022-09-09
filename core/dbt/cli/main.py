@@ -1,10 +1,21 @@
 import inspect  # This is temporary for RAT-ing
 import sys
+from copy import copy
 from pprint import pformat as pf  # This is temporary for RAT-ing
 
 import click
 from dbt.cli import params as p
 from dbt.cli.flags import Flags
+
+
+def cli_runner():
+    # Alias "list" to "ls"
+    ls = copy(cli.commands["list"])
+    ls.hidden = True
+    cli.add_command(ls, "ls")
+
+    # Run the cli
+    cli()
 
 
 # dbt
