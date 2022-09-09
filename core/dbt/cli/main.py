@@ -395,3 +395,8 @@ def test(ctx, **kwargs):
     """Runs tests on data in deployed models. Run this after `dbt run`"""
     flags = Flags()
     click.echo(f"`{inspect.stack()[0][3]}` called\n flags: {flags}")
+
+
+# Support running as a module
+if __name__ == "__main__":
+    cli_runner()
