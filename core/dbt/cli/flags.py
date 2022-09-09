@@ -33,8 +33,6 @@ class Flags:
         assign_params(ctx)
 
         # Hard coded flags
-        #  TODO: This is listed as for backwards compat... Still needed?
-        object.__setattr__(self, "STRICT_MODE", False)
         object.__setattr__(self, "WHICH", ctx.info_name)
         object.__setattr__(self, "MP_CONTEXT", get_context("spawn"))
 
