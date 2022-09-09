@@ -110,11 +110,10 @@ indirect_selection = click.option(
     default="eager",
 )
 
-#  TODO: Should this be exposed in the help text?
 log_cache_events = click.option(
     "--log-cache-events/--no-log-cache-events",
+    help="Enable verbose adapter cache logging.",
     envvar="DBT_LOG_CACHE_EVENTS",
-    hidden=True,
 )
 
 log_format = click.option(
