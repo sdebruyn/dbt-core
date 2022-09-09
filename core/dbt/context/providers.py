@@ -124,17 +124,20 @@ class BaseDatabaseWrapper:
         search_prefixes = get_adapter_type_names(self._adapter.type()) + ["default"]
         return search_prefixes
 
-    def _get_search_packages(self, namespace: Optional[str] = None):
+    def _get_search_packages(self, namespace: Optional[str] = None) -> List[Optional[str]]:
+        search_packages: List[Optional[str]] = [None]
+
         if namespace is None:
             search_packages = [None]
         elif isinstance(namespace, str):
-            search_packages = self._adapter.config.get_macro_search_order(namespace)
-            if not search_packages and namespace in self._adapter.config.dependencies:
+            macro_search_order = self._adapter.config.get_macro_search_order(namespace)
+            if macro_search_order:
+                search_packages = macro_search_order
+            elif not macro_search_order and namespace in self._adapter.config.dependencies:
                 search_packages = [self.config.project_name, namespace]
         else:
-            # Not a string and not None so must be a list
             raise CompilationException(
-                f"In adapter.dispatch, got a list macro_namespace argument "
+                f"In adapter.dispatch, got a {type(namespace)} macro_namespace argument "
                 f'("{namespace}"), but macro_namespace should be None or a string.'
             )
 
