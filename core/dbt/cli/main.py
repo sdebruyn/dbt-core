@@ -218,7 +218,6 @@ def init(ctx, **kwargs):
 
 
 # dbt list
-# TODO: Figure out aliasing for ls (or just c/p?)
 @cli.command("list")
 @click.pass_context
 @p.exclude
