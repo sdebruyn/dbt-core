@@ -432,9 +432,7 @@ class BaseDocsGenerate(BaseGenerateProject):
     # Test "--no-compile" flag works and produces no manifest.json
     def test_run_and_generate_no_compile(self, project, expected_catalog):
         start_time = run_and_generate(project, ["--no-compile"])
-        assert not os.path.exists(
-            os.path.join(project.project_root, "target", "manifest.json")
-        )
+        assert not os.path.exists(os.path.join(project.project_root, "target", "manifest.json"))
         verify_catalog(project, expected_catalog, start_time)
 
     # Test generic "docs generate" command
